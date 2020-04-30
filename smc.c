@@ -195,8 +195,8 @@ void readAndPrintCpuTemp(int show_title, char scale)
     if (show_title) {
         title = "CPU: ";
     }
-    // printf("%s%0.1f°%c\n", title, temperature, scale);
-    printf("%0.1f", temperature);
+    printf("%s%0.1f°%c\n", title, temperature, scale);
+    // printf("%0.1f", temperature);
 }
 
 // Requires SMCOpen()
@@ -211,8 +211,8 @@ void readAndPrintGpuTemp(int show_title, char scale)
     if (show_title) {
         title = "GPU: ";
     }
-    // printf("%s%0.1f°%c\n", title, temperature, scale);
-    printf("%0.1f", temperature);
+    printf("%s%0.1f°%c\n", title, temperature, scale);
+    // printf("%0.1f", temperature);
 }
 
 #define IS_FLT(A) *(UInt32*)(A.dataType) == *(UInt32*)("flt ")
@@ -284,7 +284,8 @@ void readAndPrintFanRPMs(void)
 
             pct *= 100.f;
             // printf("Fan %d - %s at %.0f RPM (%.0f%%)\n", i, name, rpm, pct);
-            printf("%.0f(%.0f%%)", rpm, pct);
+            printf("Fan%d: %.0f RPM(%.0f%%)\n", i, rpm, pct);
+            // printf("%.0f(%.0f%%)", rpm, pct);
 
             //sprintf(key, "F%dSf", i);
             //SMCReadKey(key, &val);

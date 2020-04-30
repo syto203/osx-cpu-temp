@@ -195,7 +195,8 @@ void readAndPrintCpuTemp(int show_title, char scale)
     if (show_title) {
         title = "CPU: ";
     }
-    printf("%s%0.1f °%c\n", title, temperature, scale);
+    // printf("%s%0.1f°%c\n", title, temperature, scale);
+    printf("%0.1f", temperature);
 }
 
 // Requires SMCOpen()
@@ -210,9 +211,11 @@ void readAndPrintGpuTemp(int show_title, char scale)
     if (show_title) {
         title = "GPU: ";
     }
-    printf("%s%0.1f °%c\n", title, temperature, scale);
+    // printf("%s%0.1f°%c\n", title, temperature, scale);
+    printf("%0.1f", temperature);
 }
 
+#define IS_FLT(A) *(UInt32*)(A.dataType) == *(UInt32*)("flt ")
 float SMCGetFanRPM(char* key)
 {
     SMCVal_t val;
@@ -222,7 +225,8 @@ float SMCGetFanRPM(char* key)
     if (result == kIOReturnSuccess) {
         // read succeeded - check returned value
         if (val.dataSize > 0) {
-            if (strcmp(val.dataType, DATATYPE_FPE2) == 0) {
+            if (IS_FLT(val)) return *((float*)val.bytes);
+            else if (strcmp(val.dataType, DATATYPE_FPE2) == 0) {
                 // convert fpe2 value to RPM
                 return ntohs(*(UInt16*)val.bytes) / 4.0;
             }
@@ -245,7 +249,7 @@ void readAndPrintFanRPMs(void)
     if (result == kIOReturnSuccess) {
         totalFans = _strtoul((char*)val.bytes, val.dataSize, 10);
 
-        printf("Num fans: %d\n", totalFans);
+        // printf("Num fans: %d\n", totalFans);
         for (i = 0; i < totalFans; i++) {
             sprintf(key, "F%dID", i);
             result = SMCReadKey(key, &val);
@@ -279,7 +283,8 @@ void readAndPrintFanRPMs(void)
             float pct = rpm / (maximum_speed - minimum_speed);
 
             pct *= 100.f;
-            printf("Fan %d - %s at %.0f RPM (%.0f%%)\n", i, name, rpm, pct);
+            // printf("Fan %d - %s at %.0f RPM (%.0f%%)\n", i, name, rpm, pct);
+            printf("%.0f(%.0f%%)", rpm, pct);
 
             //sprintf(key, "F%dSf", i);
             //SMCReadKey(key, &val);

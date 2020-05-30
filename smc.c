@@ -256,7 +256,7 @@ void readAndPrintFanRPMs(void)
             if (result != kIOReturnSuccess) {
                 continue;
             }
-            char* name = val.bytes + 4;
+            //char* name = val.bytes + 4;
 
             sprintf(key, "F%dAc", i);
             float actual_speed = SMCGetFanRPM(key);
@@ -284,7 +284,7 @@ void readAndPrintFanRPMs(void)
 
             pct *= 100.f;
             // printf("Fan %d - %s at %.0f RPM (%.0f%%)\n", i, name, rpm, pct);
-            printf("Fan%d: %.0f RPM(%.0f%%)\n", i, rpm, pct);
+            printf("Fan%d: %.0f RPM(%.0f%%)\n", i, actual_speed, pct);
             // printf("%.0f(%.0f%%)", rpm, pct);
 
             //sprintf(key, "F%dSf", i);

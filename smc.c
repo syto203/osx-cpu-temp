@@ -1,6 +1,6 @@
 /*
- * Apple System Management Control (SMC) Tool 
- * Copyright (C) 2006 devnull 
+ * Apple System Management Control (SMC) Tool
+ * Copyright (C) 2006 devnull
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -256,7 +256,7 @@ void readAndPrintFanRPMs(void)
             if (result != kIOReturnSuccess) {
                 continue;
             }
-            //char* name = val.bytes + 4;
+            // char* name = val.bytes + 4;
 
             sprintf(key, "F%dAc", i);
             float actual_speed = SMCGetFanRPM(key);
@@ -284,7 +284,18 @@ void readAndPrintFanRPMs(void)
 
             pct *= 100.f;
             // printf("Fan %d - %s at %.0f RPM (%.0f%%)\n", i, name, rpm, pct);
-            printf("Fan%d: %.0f RPM(%.0f%%)\n", i, actual_speed, pct);
+            // printf("Fan%d: %.0f RPM(%.0f%%)\n", i, rpm, pct);
+            // printf("Fan%d: %.0f RPM(%.0f%%)\n", i, actual_speed, pct);
+            if (i == 0) {
+              printf("Left Fan %.0f\n", actual_speed);
+              printf("Left Fan Throuput %.0f%%\n", pct);
+            } else if (i == 1) {
+              printf("Right Fan %.0f\n", actual_speed);
+              printf("Right Fan Throuput %.0f%%\n", pct);
+            }
+            // printf("Left Fan %d %.0f\n", i, actual_speed);
+            // printf("Left Fan %d %.0f%%\n", i, pct);
+
             // printf("%.0f(%.0f%%)", rpm, pct);
 
             //sprintf(key, "F%dSf", i);

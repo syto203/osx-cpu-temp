@@ -287,12 +287,21 @@ void readAndPrintFanRPMs(void)
             // printf("Fan%d: %.0f RPM(%.0f%%)\n", i, rpm, pct);
             // printf("Fan%d: %.0f RPM(%.0f%%)\n", i, actual_speed, pct);
             if (i == 0) {
-              printf("Left Fan %.0f\n", actual_speed);
-              printf("Left Fan Throuput %.0f%%\n", pct);
+              printf("%.0f ", actual_speed);
+            //   printf("left %.0f%%\n", pct);
             } else if (i == 1) {
-              printf("Right Fan %.0f\n", actual_speed);
-              printf("Right Fan Throuput %.0f%%\n", pct);
+              printf("%.0f ", actual_speed);
+            //   printf("Right %.0f%%\n", pct);
+            }          
+              if (i == 0) {
+            //   printf("%.0f ", actual_speed);
+              printf("%.0f ", pct);
+            } else if (i == 1) {
+            //   printf("%.0f\n", actual_speed);
+              printf("%.0f\n", pct);
             }
+
+            // printf("%.0f %.0f\n",actual_speed, actual_speed);
             // printf("Left Fan %d %.0f\n", i, actual_speed);
             // printf("Left Fan %d %.0f%%\n", i, pct);
 
